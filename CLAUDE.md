@@ -8,22 +8,43 @@ serving home users and small businesses.
 There is no build step. Hand-written HTML and CSS, no framework, no npm, no
 bundler, no preprocessor. Edit the files directly.
 
-Preview locally with any static server, e.g. `python3 -m http.server` from the
-repo root.
+Preview locally with any static server run from `public/`, e.g.
+`python3 -m http.server` — the site files are in `public/`, not the repo root.
 
 ## Hosting
 
-Cloudflare Pages serves the repo root directly. No build command, no output
-directory. `privacy.html` and `terms.html` are linked as `/privacy` and `/terms`
-— Cloudflare Pages resolves extensionless paths to the matching `.html` file.
+A Cloudflare **Worker** named `remotetechrescue`, serving static assets only —
+not Cloudflare Pages. Workers Builds deploys on every push to `main`.
 
-DNS and the Pages project are managed by the owner outside this repo.
+`wrangler.jsonc` has no `main` key on purpose: with only an `assets` block and
+no Worker script, this is an assets-only Worker and `main` is optional. Adding
+one would mean writing request-handling code that isn't needed here.
+
+Build settings in the Cloudflare dashboard (Worker → Settings → Build):
+
+| Field | Value |
+| --- | --- |
+| Build command | **empty** — there is nothing to build, and `npm run build` will fail |
+| Deploy command | `npx wrangler deploy` |
+| Root directory | `/` |
+| Production branch | `main` |
+
+`privacy.html` and `terms.html` are linked as `/privacy` and `/terms`. That works
+because `html_handling` defaults to `auto-trailing-slash`, which serves
+`foo.html` at `/foo`. Don't change that default without fixing the footer links.
+
+DNS and the Worker's custom domain are managed by the owner outside this repo.
 
 ## Files
 
-- `index.html` — the whole marketing page
-- `privacy.html`, `terms.html` — short plain-language legal pages
-- `styles.css` — shared by all three pages; do not inline styles per page
+Site files live in `public/` — that directory is the deploy surface, so anything
+placed there is publicly fetchable. `CLAUDE.md`, `.gitignore`, and
+`wrangler.jsonc` sit at the repo root and are deliberately not served.
+
+- `public/index.html` — the whole marketing page
+- `public/privacy.html`, `public/terms.html` — short plain-language legal pages
+- `public/styles.css` — shared by all three pages; do not inline styles per page
+- `wrangler.jsonc` — Worker name and assets directory
 
 ## Design tokens
 

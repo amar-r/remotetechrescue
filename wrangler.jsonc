@@ -1,0 +1,9 @@
+{
+  // Static-assets-only Worker: there is no Worker script, so "main" is omitted.
+  // Everything under public/ is uploaded and served as-is.
+  "name": "remotetechrescue",
+  "compatibility_date": "2026-08-08",
+  "assets": {
+    "directory": "./public"
+  }
+}
