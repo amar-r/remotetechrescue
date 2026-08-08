@@ -1,4 +1,4 @@
-# remotetechsupport.com
+# remotetechrescue.com
 
 Single-page static marketing site for a remote computer/IT support side project
 serving home users and small businesses.
@@ -59,7 +59,7 @@ conscious decision.
 
 ## Contact
 
-Email only — `help@remotetechsupport.com`, a placeholder to be swapped later.
+Email only — `help@remotetechrescue.com`, a placeholder to be swapped later.
 **There is intentionally no phone number anywhere on the site for now.** Don't
 add one, and don't add a phone field or "call hours" copy. The trust band
 explicitly says the owner never cold calls, so a phone number would undercut it.
